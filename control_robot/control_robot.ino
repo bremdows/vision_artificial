@@ -105,13 +105,14 @@ void loop(){
   retraso_tiempo(2.5);
   detener();
   retraso_tiempo(2.5);*/
-  int data = 0;
-  String mensaje = "";
+
+  if( Serial.available() ){ // EJECUTAR ALGO SI LA COMUNICACIÓN SERIAL ESTA HABILITADA
+     int data = Serial.parseInt();
+     String mensaje = "";
   switch(data){
     case 1 :
      // avanzar();
      mensaje = "1. Avanzar";
-
     break;
     
     case 2 :
@@ -130,8 +131,18 @@ void loop(){
     case 5 : 
     mensaje = "5. Detener motor";
     break;
+
+    default :
+    mensaje = "0. EN ESPERA";
+    break;
   }
   Serial.println(mensaje);
+  retraso_tiempo(1.5);
+  }else{
+    Serial.println("La comunicación Serial no esta habilitada");
+    retraso_tiempo(2);
+  }
+  
 }
 
 
